@@ -54,7 +54,7 @@ h1 {
     align-items:center;
     gap:20px;
     margin-top:30px;
-    min-height:200px;
+    min-height:auto;
     position:relative;
 }
 
@@ -70,30 +70,29 @@ button {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Yes button is now relative for proper centering */
 .yes-btn {
     background: linear-gradient(135deg, #ff70b8, #d63384);
     color:white;
     box-shadow:0 6px 20px rgba(214,51,132,0.3);
-    transform-origin:center center;
-    position:absolute;
-    left:35%;
-    top:50%;
-    transform:translate(-50%,-50%);
+    position: relative;
     z-index:10;
 }
 
+.yes-btn:hover { transform: scale(1.05); box-shadow:0 8px 25px rgba(214,51,132,0.4); }
+
+/* No button moves freely but always visible */
 .no-btn {
-    position: fixed;      /* always relative to viewport */
-    z-index: 9999;        /* above everything */
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    color:#6c757d;
+    position: fixed;
+    z-index: 9999;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     cursor: pointer;
-    transition: left 0.3s ease, top 0.3s ease, transform 0.3s ease;
+    transition: transform 0.3s ease, top 0.3s ease, left 0.3s ease;
     max-width: 80%;
     white-space: nowrap;
 }
-
-
-.yes-btn:hover { transform: translate(-50%,-50%) scale(1.05); box-shadow:0 8px 25px rgba(214,51,132,0.4); }
-.no-btn:hover { background: linear-gradient(135deg,#e9ecef,#dee2e6); }
 
 .message { font-size: clamp(1em,3vw,1.35em); color:#d63384; line-height:1.9; margin:30px 0; font-weight:400; }
 
@@ -116,20 +115,19 @@ button {
 .day-card { border-radius:22px; padding:25px 15px; cursor:pointer; transition:all 0.35s ease; position:relative; box-shadow:0 6px 20px rgba(255,91,168,0.2); border:1px solid rgba(255,255,255,0.5);}
 .day-card.locked { opacity:0.45; cursor:not-allowed; background:linear-gradient(135deg,#e9ecef,#dee2e6); border:1px solid rgba(0,0,0,0.05);}
 .day-card.unlocked { background:linear-gradient(135deg,#ff70b8,#d63384); animation:glow 2s ease-in-out infinite; }
-@keyframes glow {0%,100%{box-shadow:0 6px 20px rgba(214,51,132,0.3);}50%{box-shadow:0 6px 30px rgba(214,51,132,0.5);}}
+@keyframes glow {0%,100%{box-shadow:0 6px 20px rgba(214,51,132,0.3);}50%{box-shadow:0 6px 30px rgba(214,51,132,0.5);} }
 .day-number { font-size:clamp(1.5em,3vw,2.2em); font-weight:700; margin-bottom:10px; color:white; }
 .day-label { color:white; font-size:0.92em; opacity:0.95; font-weight:500; }
 .day-card.locked .day-number, .day-card.locked .day-label { color:#6c757d; }
 
-.day-content { background: linear-gradient(135deg,#fff,#fff5f9); border-radius:25px; padding:clamp(20px,4vw,35px); margin-top:25px; border:2px solid #ffb3d9; box-shadow:0 6px 25px rgba(255,91,168,0.15);}
+.day-content { background: linear-gradient(135deg,#fff,#fff5f9); border-radius:25px; padding:clamp(20px,4vw,35px); margin-top:25px; border:2px solid #ffb3d9; box-shadow:0 6px 25px rgba(255,91,168,0.15); }
 .reason-text { font-size:clamp(1em,3vw,1.25em); line-height:2; color:#d63384; font-weight:400; }
 
 .back-btn { background: linear-gradient(135deg,#ff70b8,#d63384); color:white; margin-top:25px; box-shadow:0 6px 20px rgba(214,51,132,0.3);}
 .back-btn:hover { transform:translateY(-3px); box-shadow:0 8px 25px rgba(214,51,132,0.4); }
 
 @media (max-width: 600px) {
-    .yes-btn, .no-btn { position: static; transform:none; }
-    .button-container { min-height:auto; flex-direction:column; gap:15px; }
+    .button-container { flex-direction: column; gap:15px; }
 }
 </style>
 </head>
@@ -155,7 +153,9 @@ button {
             Every single day.<br><br>
             But here's the good news...
         </div>
-        <button class="yes-btn" onclick="goToPage(3)">What is it? ❤️</button>
+        <div class="button-container">
+            <button class="yes-btn" onclick="goToPage(3)">What is it? ❤️</button>
+        </div>
     </div>
 
     <!-- Page 3 -->
@@ -174,7 +174,9 @@ button {
             so I made something for you...<br><br>
             A little surprise to count down the days <span class="heart">💝</span>
         </div>
-        <button class="yes-btn" onclick="goToPage(4)">Show me! ❤️</button>
+        <div class="button-container">
+            <button class="yes-btn" onclick="goToPage(4)">Show me! ❤️</button>
+        </div>
     </div>
 
     <!-- Page 4 -->
@@ -229,7 +231,6 @@ const playfulMessages = [
     "Just admit it already! ❤️","Fine… Yes! ❤️"
 ];
 
-// Ensure button stays on screen
 function moveButton() {
     const btn = document.getElementById('noBtn');
     const yesBtn = document.querySelector('.yes-btn');
@@ -237,25 +238,23 @@ function moveButton() {
     if (moveCount >= maxAttempts) {
         btn.style.display = 'none';
         yesBtn.textContent = "Actually.... YES! ❤️";
-        yesBtn.style.transform = `translate(-50%, -50%) scale(2.5)`;
+        yesBtn.style.transform = `scale(2.5)`;
         return;
     }
 
-    // Update playful message
     btn.textContent = playfulMessages[moveCount];
     moveCount++;
 
     // Scale yes button
     const scale = 1 + (moveCount / maxAttempts) * 1.5;
-    yesBtn.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    yesBtn.style.transform = `scale(${scale})`;
     yesBtn.style.transition = 'transform 0.4s ease';
 
-    // Get button size
+    // Constrain button inside viewport
     const btnWidth = btn.offsetWidth;
     const btnHeight = btn.offsetHeight;
-    const padding = 10; // margin from edges
+    const padding = 10;
 
-    // Detect viewport properly (mobile & iPhone safe area)
     let vw = window.innerWidth;
     let vh = window.innerHeight;
     if (window.visualViewport) {
@@ -263,19 +262,15 @@ function moveButton() {
         vh = window.visualViewport.height;
     }
 
-    // Calculate random position inside visible area
     const x = Math.random() * (vw - btnWidth - padding * 2) + padding;
     const y = Math.random() * (vh - btnHeight - padding * 2) + padding;
 
-    // Apply new position
     btn.style.left = `${x}px`;
     btn.style.top = `${y}px`;
 }
 
-
 function cantClickNo() { moveButton(); }
 
-// Page navigation
 function goToPage(pageNum) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page'+pageNum).classList.add('active');
@@ -283,7 +278,6 @@ function goToPage(pageNum) {
     else if (pageNum===4) renderDaysGrid();
 }
 
-// Countdown
 function startCountdown() {
     function updateCountdown() {
         const now = new Date();
@@ -303,7 +297,6 @@ function startCountdown() {
     setInterval(updateCountdown,1000);
 }
 
-// Days grid
 function renderDaysGrid() {
     const grid=document.getElementById('daysGrid'); grid.innerHTML='';
     const now=new Date();
@@ -331,7 +324,6 @@ function showDay(dayNum){
     goToPage(5);
 }
 
-// Initialize
 startCountdown();
 </script>
 </body>
