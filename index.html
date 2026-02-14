@@ -215,27 +215,30 @@ window.addEventListener('load', () => {
 });
 
 // Move No button within container
-function moveButton(){
-    if(moveCount>=maxAttempts){
-        noBtn.style.display='none';
-        yesBtn.textContent="Actually.... YES! ❤️";
-        yesBtn.style.transform=`scale(2.5)`;
+function moveButton() {
+    const btn = document.getElementById('noBtn');
+    if (moveCount >= maxAttempts) {
+        btn.style.display = 'none';
+        const yesBtn = document.querySelector('.yes-btn');
+        yesBtn.textContent = "Actually.... YES! ❤️";
+        yesBtn.style.transform = `translate(-50%, -50%) scale(2.5)`;
         return;
     }
-    noBtn.textContent = playfulMessages[moveCount % playfulMessages.length];
+
+    btn.textContent = playfulMessages[moveCount];
     moveCount++;
-    const scale = 1 + (moveCount/maxAttempts)*1.5;
-    yesBtn.style.transform=`scale(${scale})`;
 
-    const container = document.querySelector('.container');
-    const maxX = container.clientWidth - noBtn.offsetWidth - 10;
-    const maxY = container.clientHeight - noBtn.offsetHeight - 10;
-    const x = Math.random()*maxX;
-    const y = Math.random()*maxY;
+    growYesButton();
 
-    noBtn.style.left = `${x}px`;
-    noBtn.style.top = `${y}px`;
+    // Random movement relative to initial position
+    const maxX = window.innerWidth > 600 ? 150 : 100;
+    const maxY = window.innerWidth > 600 ? 100 : 60;
+    const x = (Math.random() * 2 - 1) * maxX; // -maxX to +maxX
+    const y = (Math.random() * 2 - 1) * maxY; // -maxY to +maxY
+
+    btn.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
 }
+
 
 function cantClickNo(){ moveButton(); }
 function goToPage(num){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page'+num).classList.add('active');if(num===3)startCountdown();else if(num===4)renderDaysGrid();}
