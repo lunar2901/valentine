@@ -15,6 +15,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* ===== CARD ===== */
@@ -36,7 +37,6 @@ h1 {
   font-size: 1.8rem;
   margin-bottom: 10px;
 }
-
 p {
   color: #a33a5a;
   font-size: 1.1rem;
@@ -63,9 +63,7 @@ button {
   background: linear-gradient(135deg, #d6336c, #f85c8a);
   color: white;
 }
-.yes-btn:hover {
-  background: linear-gradient(135deg, #f85c8a, #d6336c);
-}
+.yes-btn:hover { background: linear-gradient(135deg, #f85c8a, #d6336c); }
 
 #noBtn {
   top: 85%;
@@ -86,7 +84,6 @@ button {
   gap: 10px;
   justify-content: center;
 }
-
 .day-card {
   width: 80px;
   height: 80px;
@@ -103,12 +100,7 @@ button {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .day-card:hover { transform: scale(1.05); box-shadow: 0 6px 12px rgba(214,51,108,0.3); }
-
-.locked {
-  cursor: default;
-  background: #f5f5f5;
-  color: #999;
-}
+.locked { cursor: default; background: #f5f5f5; color: #999; }
 
 /* ===== PAGE HIDDEN/ACTIVE ===== */
 .page { display: none; }
@@ -132,13 +124,29 @@ button {
 }
 #lovePopup.show { transform: translate(-50%, -50%) scale(1); }
 #lovePopup button { margin-top: 15px; background: #d6336c; color:white; }
+
+/* ===== FLOATING HEARTS ===== */
+.heart {
+  position: absolute;
+  width: 25px; height: 25px;
+  background: #ff3366;
+  clip-path: polygon(
+    50% 0%, 61% 10%, 68% 25%, 50% 100%, 32% 25%, 39% 10%
+  );
+  opacity: 0.8;
+  animation: floatHeart 1.5s ease-out forwards;
+  z-index: 50;
+}
+@keyframes floatHeart {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-150px) scale(1.5); opacity: 0; }
+}
 </style>
 </head>
 <body>
 
 <div class="card">
-
-  <!-- PAGE 1: Yes/No -->
+  <!-- PAGE 1 -->
   <div id="page1" class="page active-page">
     <h1>Happy Valentine's Day Cintaku, Oliver! ❤️</h1>
     <p>Do you miss me?</p>
@@ -146,7 +154,7 @@ button {
     <button id="noBtn">No 😅</button>
   </div>
 
-  <!-- PAGE 2: Countdown -->
+  <!-- PAGE 2 -->
   <div id="page2" class="page">
     <h1>Countdown to Valentine</h1>
     <div id="countdown">
@@ -157,12 +165,11 @@ button {
     <button onclick="goToPage(3)" style="margin-top:20px;">Next ➡️</button>
   </div>
 
-  <!-- PAGE 3: Love Reasons -->
+  <!-- PAGE 3 -->
   <div id="page3" class="page">
     <h1>Love Reasons</h1>
     <div id="daysGrid"></div>
   </div>
-
 </div>
 
 <!-- LOVE POPUP -->
@@ -173,10 +180,8 @@ button {
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-
   const targetDate = new Date('2026-02-21T16:00:00+01:00');
   const startDate = new Date('2026-02-14T00:00:00+01:00');
-
   const loveReasons = [
     "Your smile is the first thing I think about when I wake up.",
     "The way you listen to me makes me feel special.",
@@ -187,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
     "I love you for being exactly who you are ❤️",
     "The 8th reason? I'll tell you in person... 😊💕"
   ];
-
   const playfulMessages = [
     "Are you sureeee? 🤔","That didn't look convincing 😏","Try again… honestly 😌",
     "Your heart whispered 'yes' 💭","Oops, wrong answer 😄"
@@ -204,10 +208,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===== YES BUTTON =====
-  yesBtn.addEventListener('click', () => {
+  yesBtn.addEventListener('click', (e) => {
     yesBtn.textContent = "Actually.... YES! ❤️";
     yesBtn.style.transform = "translate(-50%, -50%) scale(1.5)";
-    goToPage(2); // Move to countdown
+    goToPage(2);
+
+    // Spawn 5 hearts around the button
+    const rect = yesBtn.getBoundingClientRect();
+    for(let i=0; i<5; i++){
+      const offsetX = Math.random()*rect.width - rect.width/2;
+      const offsetY = Math.random()*rect.height - rect.height/2;
+      spawnHeart(rect.left + rect.width/2 + offsetX, rect.top + rect.height/2 + offsetY);
+    }
   });
 
   // ===== NO BUTTON =====
@@ -222,9 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
       noBtn.style.transform = `translate(${x}px, ${y}px)`;
       const scale = 1 + (moveCount/50)*0.5;
       yesBtn.style.transform = `translate(-50%, -50%) scale(${scale})`;
-    } else {
-      noBtn.style.display = 'none';
-    }
+    } else { noBtn.style.display = 'none'; }
   });
 
   // ===== COUNTDOWN =====
@@ -245,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCountdown();
   setInterval(updateCountdown,1000);
 
-  // ===== DAYS GRID =====
+  // ===== LOVE REASONS GRID =====
   function renderDaysGrid(){
     const grid = document.getElementById('daysGrid');
     grid.innerHTML = '';
@@ -280,6 +290,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.closePopup = () => {
     popup.classList.remove('show');
+  }
+
+  // ===== FLOATING HEARTS =====
+  function spawnHeart(x, y){
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = x + 'px';
+    heart.style.top = y + 'px';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 1500);
   }
 
 });
