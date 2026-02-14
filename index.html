@@ -1,126 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
 <style>
 /* Reset */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
-    font-family: 'Georgia', serif;
+    font-family:'Georgia', serif;
     background: linear-gradient(135deg, #ffd6e8, #ffb3d9, #ff8dc7, #ff70b8, #ff5ba8);
     background-attachment: fixed;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.98);
-    border-radius: 30px;
-    padding: clamp(20px, 5vw, 50px);
-    max-width: 650px;
-    width: 100%;
-    box-shadow: 0 25px 80px rgba(255, 91, 168, 0.25), 0 10px 40px rgba(0, 0, 0, 0.1);
+    background: rgba(255,255,255,0.98);
+    border-radius:30px;
+    padding: clamp(20px,5vw,50px);
+    max-width:650px;
+    width:100%;
+    box-shadow: 0 25px 80px rgba(255,91,168,0.25),0 10px 40px rgba(0,0,0,0.1);
     backdrop-filter: blur(10px);
-    text-align: center;
+    text-align:center;
 }
 
-.page { display: none; }
-.page.active { display: block; animation: fadeIn 0.5s ease-in; }
-
-@keyframes fadeIn { from { opacity:0; transform: translateY(20px);} to {opacity:1; transform:translateY(0);} }
+.page { display:none; }
+.page.active { display:block; animation: fadeIn 0.5s ease-in; }
+@keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
 
 h1 {
-    color: #d63384;
-    font-size: clamp(1.8em, 5vw, 2.8em);
-    margin-bottom: 20px;
-    font-weight: 600;
-    letter-spacing: -0.5px;
+    color:#d63384;
+    font-size:clamp(1.8em,5vw,2.8em);
+    margin-bottom:20px;
+    font-weight:600;
+    letter-spacing:-0.5px;
 }
 
-.heart { color: #ff5ba8; font-size: 1.5em; animation: heartbeat 1.5s ease-in-out infinite; display:inline-block; }
-@keyframes heartbeat { 0%,100%{transform:scale(1);}25%{transform:scale(1.15);}50%{transform:scale(1);}75%{transform:scale(1.08);} }
+.heart { color:#ff5ba8; font-size:1.5em; animation: heartbeat 1.5s ease-in-out infinite; display:inline-block;}
+@keyframes heartbeat {0%,100%{transform:scale(1);}25%{transform:scale(1.15);}50%{transform:scale(1);}75%{transform:scale(1.08);}}
 
-.question { font-size: clamp(1.3em, 4vw, 1.9em); color:#d63384; margin:40px 0; font-weight:500; }
+.question { font-size:clamp(1.3em,4vw,1.9em); color:#d63384; margin:40px 0; font-weight:500; }
 
 .button-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-top: 30px;
-    min-height: 200px;
-    position: relative;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    margin-top:30px;
+    min-height:200px;
+    position:relative;
 }
 
 button {
-    padding: clamp(12px, 3vw, 16px) clamp(25px, 6vw, 45px);
-    font-size: clamp(1em, 3vw, 1.2em);
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-family: 'Georgia', serif;
-    font-weight: 600;
-    white-space: nowrap;
+    padding: clamp(12px,3vw,16px) clamp(25px,6vw,45px);
+    font-size: clamp(1em,3vw,1.2em);
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    font-family:'Georgia', serif;
+    font-weight:600;
+    white-space:nowrap;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .yes-btn {
     background: linear-gradient(135deg, #ff70b8, #d63384);
-    color: white;
-    box-shadow: 0 6px 20px rgba(214, 51, 132, 0.3);
-    transform-origin: center center;
-    position: absolute;
-    left: 35%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
+    color:white;
+    box-shadow:0 6px 20px rgba(214,51,132,0.3);
+    transform-origin:center center;
+    position:absolute;
+    left:35%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    z-index:10;
 }
+
 .no-btn {
     background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    color: #6c757d;
-    position: absolute;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    left: 65%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    color:#6c757d;
+    position:absolute;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    left:65%;
+    top:50%;
+    transform:translate(-50%,-50%);
 }
 
-/* Countdown */
+.yes-btn:hover { transform: translate(-50%,-50%) scale(1.05); box-shadow:0 8px 25px rgba(214,51,132,0.4); }
+.no-btn:hover { background: linear-gradient(135deg,#e9ecef,#dee2e6); }
+
+.message { font-size: clamp(1em,3vw,1.35em); color:#d63384; line-height:1.9; margin:30px 0; font-weight:400; }
+
 .countdown-section {
-    background: linear-gradient(135deg, #ff70b8, #d63384);
-    border-radius: 25px;
-    padding: clamp(20px, 4vw, 35px);
-    margin: 35px 0;
-    color: white;
-    box-shadow: 0 8px 30px rgba(214, 51, 132, 0.3);
+    background: linear-gradient(135deg,#ff70b8,#d63384);
+    border-radius:25px;
+    padding:clamp(20px,4vw,35px);
+    margin:35px 0;
+    color:white;
+    box-shadow:0 8px 30px rgba(214,51,132,0.3);
 }
-.countdown { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
-.time-unit { background: rgba(255,255,255,0.25); border-radius:18px; padding:18px 22px; min-width:75px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);}
-.time-number { font-size: clamp(1.8em, 4vw, 2.6em); font-weight:700; display:block;}
-.time-label { font-size:0.88em; text-transform:uppercase; letter-spacing:1.5px; font-weight:500;}
 
-/* Days Grid */
-.days-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap: 16px; margin-top: 35px; }
-.day-card { border-radius: 22px; padding: 25px 15px; cursor:pointer; transition: all 0.35s ease; position:relative; box-shadow:0 6px 20px rgba(255,91,168,0.2); border:1px solid rgba(255,255,255,0.5); }
+.countdown-title { font-size:1.4em; margin-bottom:25px; font-weight:500; opacity:0.98; }
+.countdown { display:flex; justify-content:center; gap:18px; flex-wrap:wrap; }
+.time-unit { background: rgba(255,255,255,0.25); border-radius:18px; padding:18px 22px; min-width:75px; backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,0.2); }
+.time-number { font-size:clamp(1.8em,4vw,2.6em); font-weight:700; display:block;}
+.time-label { font-size:0.88em; text-transform:uppercase; letter-spacing:1.5px; font-weight:500; }
+
+.days-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:16px; margin-top:35px; }
+.day-card { border-radius:22px; padding:25px 15px; cursor:pointer; transition:all 0.35s ease; position:relative; box-shadow:0 6px 20px rgba(255,91,168,0.2); border:1px solid rgba(255,255,255,0.5);}
 .day-card.locked { opacity:0.45; cursor:not-allowed; background:linear-gradient(135deg,#e9ecef,#dee2e6); border:1px solid rgba(0,0,0,0.05);}
-.day-card.unlocked { background: linear-gradient(135deg,#ff70b8,#d63384); animation: glow 2s ease-in-out infinite;}
+.day-card.unlocked { background:linear-gradient(135deg,#ff70b8,#d63384); animation:glow 2s ease-in-out infinite; }
 @keyframes glow {0%,100%{box-shadow:0 6px 20px rgba(214,51,132,0.3);}50%{box-shadow:0 6px 30px rgba(214,51,132,0.5);}}
-.day-number { font-size: clamp(1.5em,3vw,2.2em); font-weight:700; margin-bottom:10px; color:white; }
+.day-number { font-size:clamp(1.5em,3vw,2.2em); font-weight:700; margin-bottom:10px; color:white; }
 .day-label { color:white; font-size:0.92em; opacity:0.95; font-weight:500; }
 .day-card.locked .day-number, .day-card.locked .day-label { color:#6c757d; }
 
-/* Day Content */
-.day-content { background: linear-gradient(135deg,#fff,#fff5f9); border-radius:25px; padding: clamp(20px,4vw,35px); margin-top:25px; border:2px solid #ffb3d9; box-shadow:0 6px 25px rgba(255,91,168,0.15);}
-.reason-text { font-size: clamp(1em,3vw,1.25em); line-height:2; color:#d63384; font-weight:400; }
+.day-content { background: linear-gradient(135deg,#fff,#fff5f9); border-radius:25px; padding:clamp(20px,4vw,35px); margin-top:25px; border:2px solid #ffb3d9; box-shadow:0 6px 25px rgba(255,91,168,0.15);}
+.reason-text { font-size:clamp(1em,3vw,1.25em); line-height:2; color:#d63384; font-weight:400; }
 
-/* Back Button */
 .back-btn { background: linear-gradient(135deg,#ff70b8,#d63384); color:white; margin-top:25px; box-shadow:0 6px 20px rgba(214,51,132,0.3);}
-.back-btn:hover { transform: translateY(-3px); box-shadow:0 8px 25px rgba(214,51,132,0.4); }
+.back-btn:hover { transform:translateY(-3px); box-shadow:0 8px 25px rgba(214,51,132,0.4); }
 
-/* Responsive tweaks */
 @media (max-width: 600px) {
     .yes-btn, .no-btn { position: static; transform:none; }
-    .button-container { min-height: auto; flex-direction: column; gap:15px; }
+    .button-container { min-height:auto; flex-direction:column; gap:15px; }
 }
 </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- Page 1 -->
+    <div id="page1" class="page active">
+        <h1>Happy Valentine's Day<br>Cintaku, Oliver! <span class="heart">❤️</span></h1>
+        <div class="question">Do you miss me?</div>
+        <div class="button-container">
+            <button class="yes-btn" onclick="goToPage(2)">Yes! ❤️</button>
+            <button class="no-btn" id="noBtn" onmouseover="moveButton()" onclick="cantClickNo()">No</button>
+        </div>
+    </div>
+
+    <!-- Page 2 -->
+    <div id="page2" class="page">
+        <h1><span class="heart">💕</span></h1>
+        <div class="message">
+            I knew it!<br><br>
+            Because I miss you too.<br>
+            Every single day.<br><br>
+            But here's the good news...
+        </div>
+        <button class="yes-btn" onclick="goToPage(3)">What is it? ❤️</button>
+    </div>
+
+    <!-- Page 3 -->
+    <div id="page3" class="page">
+        <h1>We'll be together soon! <span class="heart">✨</span></h1>
+        <div class="countdown-section">
+            <div class="countdown-title">Until I'm in your arms again...</div>
+            <div class="countdown" id="countdown">
+                <div class="time-unit"><span class="time-number" id="days">0</span><span class="time-label">Days</span></div>
+                <div class="time-unit"><span class="time-number" id="hours">0</span><span class="time-label">Hours</span></div>
+                <div class="time-unit"><span class="time-number" id="minutes">0</span><span class="time-label">Minutes</span></div>
+            </div>
+        </div>
+        <div class="message">
+            I know these 8 days might feel long,<br>
+            so I made something for you...<br><br>
+            A little surprise to count down the days <span class="heart">💝</span>
+        </div>
+        <button class="yes-btn" onclick="goToPage(4)">Show me! ❤️</button>
+    </div>
+
+    <!-- Page 4 -->
+    <div id="page4" class="page">
+        <h1>8 Reasons I Love You <span class="heart">❤️</span></h1>
+        <div class="message" style="font-size:1.1em;">
+            One reason unlocks each day until we're together.<br>
+            Today's card is ready for you! 💕
+        </div>
+        <div class="days-grid" id="daysGrid"></div>
+    </div>
+
+    <!-- Page 5 -->
+    <div id="page5" class="page">
+        <h1>Day <span id="currentDay"></span> <span class="heart">💕</span></h1>
+        <div class="day-content"><div class="reason-text" id="reasonText"></div></div>
+        <button class="back-btn" onclick="goToPage(4)">← Back</button>
+    </div>
+
+</div>
+
+<script>
+const targetDate = new Date('2026-02-21T16:00:00+01:00');
+const startDate = new Date('2026-02-14T00:00:00+01:00');
+
+const loveReasons = [
+    "Your smile is the first thing I think about when I wake up, and it's what gets me through the day. Even from miles away, you brighten my world.",
+    "The way you listen to me - really listen - makes me feel like the most important person in the world. You hear not just my words, but my heart.",
+    "I love how you make me laugh, even on my worst days. Your sense of humor is my favorite medicine, and I'm addicted to it.",
+    "Your kindness and the way you care for others shows me the beautiful person you are inside. It makes me love you even more deeply.",
+    "I love how we can talk about everything and nothing for hours. Our conversations are my favorite place to be, no matter the topic.",
+    "The way you support my dreams and believe in me, even when I doubt myself. You're my biggest cheerleader and my safe place.",
+    "I love you for being exactly who you are - authentic, genuine, and perfectly imperfect. You don't have to be anyone else for me, just you. ❤️",
+    "The 8th reason? I'll tell you in person... 😊💕"
+];
+
+let moveCount = 0;
+const maxAttempts = 50;
+const playfulMessages = [
+    "Are you sureeee? 🤔","That didn't look very convincing 😏","Try again… but honestly this time 😌",
+    "Your heart just whispered 'yes' 💭","Oops, wrong answer 😄","Hmm… suspicious 👀","Be honest with yourself 😊",
+    "That hesitation though… ⏳","Your smile says otherwise 😆","Still pretending? 😉","I'll give you another chance 🎯",
+    "That was cute. Try again ❤️","Denial is a river, right? 😜","You almost clicked yes 😏","Your finger slipped, didn't it? 😌",
+    "Don't fight the feeling 💕","Hmm… I don't believe you 😄","Your eyes just said yes 👀","Stop playing hard to get 😆",
+    "That 'no' sounded shy 😏","Are we being dramatic now? 🎭","Blink twice if you miss me 😉","You're adorable when you lie 😌",
+    "Confidence level: 0% 😄","That was a soft no 👀","Your heart skipped a beat just now 💓","Still trying? I've got time ⏰",
+    "Almost there… 🎯","You can't fool me 😜","Say it with your chest 😆","That click felt emotional 😂","Nice try, sweetheart 😌",
+    "The truth is calling 📞","You paused before clicking 👀","That was suspiciously quick 😏","You sure about that? 😄",
+    "Your vibe says yes ✨","Even your shadow disagrees 🌚","Why are you blushing? 😊","Your playlist says otherwise 🎶",
+    "This is getting obvious 😆","Stop resisting 😏","You're one click away from honesty 💕","That 'no' sounded nervous 😌",
+    "Your heart just rolled its eyes 😂","Keep trying, I believe in you 😉","That wasn't very convincing 😜","We both know the answer 😄",
+    "Just admit it already! ❤️","Fine… Yes! ❤️"
+];
+
+// Ensure button stays on screen
+function moveButton() {
+    const btn = document.getElementById('noBtn');
+    const yesBtn = document.querySelector('.yes-btn');
+
+    if (moveCount >= maxAttempts) {
+        btn.style.display = 'none';
+        yesBtn.textContent = "Actually.... YES! ❤️";
+        yesBtn.style.transform = `translate(-50%, -50%) scale(2.5)`;
+        return;
+    }
+
+    btn.textContent = playfulMessages[moveCount];
+    moveCount++;
+
+    // Grow yes button
+    const scale = 1 + (moveCount / maxAttempts) * 1.5;
+    yesBtn.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    yesBtn.style.transition = 'transform 0.4s ease';
+
+    // Calculate safe random position
+    const btnWidth = btn.offsetWidth;
+    const btnHeight = btn.offsetHeight;
+    const padding = 10;
+    const maxX = window.innerWidth - btnWidth - padding;
+    const maxY = window.innerHeight - btnHeight - padding;
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    btn.style.position = 'fixed';
+    btn.style.left = `${x}px`;
+    btn.style.top = `${y}px`;
+    btn.style.transform = 'none';
+}
+
+function cantClickNo() { moveButton(); }
+
+// Page navigation
+function goToPage(pageNum) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page'+pageNum).classList.add('active');
+    if (pageNum===3) startCountdown();
+    else if (pageNum===4) renderDaysGrid();
+}
+
+// Countdown
+function startCountdown() {
+    function updateCountdown() {
+        const now = new Date();
+        const diff = targetDate - now;
+        if (diff>0){
+            const days=Math.floor(diff/(1000*60*60*24));
+            const hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+            const minutes=Math.floor((diff%(1000*60*60))/(1000*60));
+            document.getElementById('days').textContent=days;
+            document.getElementById('hours').textContent=hours;
+            document.getElementById('minutes').textContent=minutes;
+        } else {
+            document.getElementById('countdown').innerHTML='<div style="font-size:2em;">We\'re together! ❤️</div>';
+        }
+    }
+    updateCountdown();
+    setInterval(updateCountdown,1000);
+}
+
+// Days grid
+function renderDaysGrid() {
+    const grid=document.getElementById('daysGrid'); grid.innerHTML='';
+    const now=new Date();
+    const currentDate=new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    for(let i=1;i<=8;i++){
+        const dayDate=new Date(startDate);
+        dayDate.setDate(startDate.getDate()+(i-1));
+        const isUnlocked=currentDate>=dayDate;
+        const isPastDate=currentDate>dayDate;
+        const card=document.createElement('div');
+        card.className=`day-card ${isUnlocked?'unlocked':'locked'}`;
+        if(isUnlocked){
+            card.onclick=()=>showDay(i);
+            card.innerHTML=`<div class="day-number">Day ${i}</div><div class="day-label">${isPastDate?'Opened':'Open Now!'}</div><div class="lock-icon">${isPastDate?'✓':'💝'}</div>`;
+        } else {
+            card.innerHTML=`<div class="day-number">Day ${i}</div><div class="day-label">Locked</div><div class="lock-icon">🔒</div>`;
+        }
+        grid.appendChild(card);
+    }
+}
+
+function showDay(dayNum){
+    document.getElementById('currentDay').textContent=dayNum;
+    document.getElementById('reasonText').textContent=loveReasons[dayNum-1];
+    goToPage(5);
+}
+
+// Initialize
+startCountdown();
+</script>
+</body>
+</html>
