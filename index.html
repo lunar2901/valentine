@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <!-- Page 1: Greeting -->
+    <div id="page1" class="page active">
+        <h1>Happy Valentine's Day<br>Cintaku, Oliver! <span class="heart">❤️</span></h1>
+        <div class="question">Do you miss me?</div>
+        <div class="button-container">
+            <button class="yes-btn" onclick="goToPage(2)">Yes! ❤️</button>
+            <button class="no-btn" id="noBtn" onmouseover="moveButton()" onclick="cantClickNo()">No</button>
+        </div>
+    </div>
+
+    <!-- Page 2: I know you do -->
+    <div id="page2" class="page">
+        <h1><span class="heart">💕</span></h1>
+        <div class="message">
+            I knew it!<br><br>
+            Because I miss you too.<br>
+            Every single day.<br><br>
+            But here's the good news...
+        </div>
+        <button class="yes-btn" onclick="goToPage(3)">What is it? ❤️</button>
+    </div>
+
+    <!-- Page 3: Countdown -->
+    <div id="page3" class="page">
+        <h1>We'll be together soon! <span class="heart">✨</span></h1>
+        <div class="countdown-section">
+            <div class="countdown-title">Until I'm in your arms again...</div>
+            <div class="countdown" id="countdown">
+                <div class="time-unit">
+                    <span class="time-number" id="days">0</span>
+                    <span class="time-label">Days</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-number" id="hours">0</span>
+                    <span class="time-label">Hours</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-number" id="minutes">0</span>
+                    <span class="time-label">Minutes</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="message">
+            I know these 8 days might feel long,<br>
+            so I made something for you...<br><br>
+            A little surprise to count down the days <span class="heart">💝</span>
+        </div>
+        <button class="yes-btn" onclick="goToPage(4)">Show me! ❤️</button>
+    </div>
+
+    <!-- Page 4: 8 Days of Love -->
+    <div id="page4" class="page">
+        <h1>8 Reasons I Love You <span class="heart">❤️</span></h1>
+        <div class="message" style="font-size: 1.1em;">
+            One reason unlocks each day until we're together.<br>
+            Today's card is ready for you! 💕
+        </div>
+        <div class="days-grid" id="daysGrid"></div>
+    </div>
+
+    <!-- Page 5: Individual Day View -->
+    <div id="page5" class="page">
+        <h1>Day <span id="currentDay"></span> <span class="heart">💕</span></h1>
+        <div class="day-content">
+            <div class="reason-text" id="reasonText"></div>
+        </div>
+        <button class="back-btn" onclick="goToPage(4)">← Back</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
