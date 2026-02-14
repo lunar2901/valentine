@@ -5,109 +5,137 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For My Love ❤️</title>
 <style>
-  body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
+/* ===== BODY ===== */
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 
-  .card {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
-    max-width: 400px;
-    width: 90%;
-    box-shadow: 0 8px 20px rgba(255,105,180,0.3);
-    text-align: center;
-    position: relative;
-  }
+/* ===== CARD ===== */
+.card {
+  background: white;
+  border-radius: 25px;
+  padding: 30px 25px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 12px 25px rgba(255,105,180,0.25);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
 
-  h1 {
-    color: #d6336c;
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-  }
+/* ===== HEADINGS ===== */
+h1 {
+  color: #d6336c;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
 
-  p {
-    color: #a33a5a;
-    font-size: 1.1rem;
-    margin-bottom: 25px;
-  }
+p {
+  color: #a33a5a;
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
 
-  button {
-    font-size: 1.2rem;
-    padding: 12px 25px;
-    border-radius: 40px;
-    border: none;
-    cursor: pointer;
-    font-weight: 700;
-    user-select: none;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: transform 0.3s ease, background 0.3s ease;
-  }
+/* ===== BUTTONS ===== */
+button {
+  font-size: 1.2rem;
+  padding: 12px 25px;
+  border-radius: 40px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  user-select: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
 
-  .yes-btn {
-    top: 70%;
-    background: linear-gradient(135deg, #d6336c, #f85c8a);
-    color: white;
-  }
-  .yes-btn:hover {
-    background: linear-gradient(135deg, #f85c8a, #d6336c);
-  }
+.yes-btn {
+  top: 70%;
+  background: linear-gradient(135deg, #d6336c, #f85c8a);
+  color: white;
+}
+.yes-btn:hover {
+  background: linear-gradient(135deg, #f85c8a, #d6336c);
+}
 
-  #noBtn {
-    top: 85%;
-    background: #ffc0cb;
-  }
+#noBtn {
+  top: 85%;
+  background: #ffc0cb;
+}
 
-  #countdown {
-    margin-top: 20px;
-    font-size: 1rem;
-  }
+/* ===== COUNTDOWN ===== */
+#countdown {
+  margin-top: 20px;
+  font-size: 1rem;
+}
 
-  #daysGrid {
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-  }
+/* ===== DAYS GRID ===== */
+#daysGrid {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
 
-  .day-card {
-    width: 80px;
-    height: 80px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #ffe6f0;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: #a33a5a;
-    box-shadow: 0 4px 8px rgba(214, 51, 108, 0.2);
-    transition: transform 0.2s ease;
-  }
+.day-card {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #ffe6f0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #a33a5a;
+  box-shadow: 0 4px 8px rgba(214, 51, 108, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.day-card:hover { transform: scale(1.05); box-shadow: 0 6px 12px rgba(214,51,108,0.3); }
 
-  .locked {
-    cursor: default;
-    background: #f5f5f5;
-    color: #999;
-  }
+.locked {
+  cursor: default;
+  background: #f5f5f5;
+  color: #999;
+}
 
-  /* Pages */
-  .page { display: none; }
-  .active-page { display: block; }
+/* ===== PAGE HIDDEN/ACTIVE ===== */
+.page { display: none; }
+.active-page { display: block; }
+
+/* ===== LOVE POPUP ===== */
+#lovePopup {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: #fff0f5;
+  color: #d6336c;
+  border-radius: 20px;
+  padding: 25px;
+  max-width: 300px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(214,51,108,0.3);
+  transition: transform 0.3s ease;
+  z-index: 100;
+}
+#lovePopup.show { transform: translate(-50%, -50%) scale(1); }
+#lovePopup button { margin-top: 15px; background: #d6336c; color:white; }
 </style>
 </head>
 <body>
+
 <div class="card">
 
   <!-- PAGE 1: Yes/No -->
@@ -135,6 +163,12 @@
     <div id="daysGrid"></div>
   </div>
 
+</div>
+
+<!-- LOVE POPUP -->
+<div id="lovePopup">
+  <div id="loveText"></div>
+  <button onclick="closePopup()">Close ❤️</button>
 </div>
 
 <script>
@@ -169,14 +203,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('page'+num).classList.add('active-page');
   }
 
-  // YES button click → go to countdown page
+  // ===== YES BUTTON =====
   yesBtn.addEventListener('click', () => {
     yesBtn.textContent = "Actually.... YES! ❤️";
     yesBtn.style.transform = "translate(-50%, -50%) scale(1.5)";
-    goToPage(2);
+    goToPage(2); // Move to countdown
   });
 
-  // NO button playful behavior
+  // ===== NO BUTTON =====
   noBtn.addEventListener('mouseenter', () => {
     if(moveCount < maxAttempts){
       noBtn.textContent = playfulMessages[moveCount % playfulMessages.length];
@@ -193,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ===== Countdown =====
+  // ===== COUNTDOWN =====
   function updateCountdown(){
     const now = new Date();
     const diff = targetDate - now;
@@ -211,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCountdown();
   setInterval(updateCountdown,1000);
 
-  // ===== Love Reasons Grid =====
+  // ===== DAYS GRID =====
   function renderDaysGrid(){
     const grid = document.getElementById('daysGrid');
     grid.innerHTML = '';
@@ -225,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('div');
       card.className = `day-card ${isUnlocked?'unlocked':'locked'}`;
       if(isUnlocked){
-        card.onclick = () => alert(loveReasons[i-1]);
+        card.onclick = () => showPopup(loveReasons[i-1]);
         card.innerHTML = `<div>Day ${i}</div><div>${isPast?'Opened':'Open Now!'}</div>`;
       } else {
         card.innerHTML = `<div>Day ${i}</div><div>Locked 🔒</div>`;
@@ -234,6 +268,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   renderDaysGrid();
+
+  // ===== POPUP =====
+  const popup = document.getElementById('lovePopup');
+  const loveText = document.getElementById('loveText');
+
+  window.showPopup = (text) => {
+    loveText.textContent = text;
+    popup.classList.add('show');
+  }
+
+  window.closePopup = () => {
+    popup.classList.remove('show');
+  }
 
 });
 </script>
