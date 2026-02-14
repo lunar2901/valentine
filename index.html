@@ -83,16 +83,14 @@ button {
 }
 
 .no-btn {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    color:#6c757d;
-    position: fixed;        /* fixed to viewport */
-    z-index: 9999;          /* on top of all content */
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    position: fixed;      /* always relative to viewport */
+    z-index: 9999;        /* above everything */
     cursor: pointer;
-    transition: transform 0.3s ease, top 0.3s ease, left 0.3s ease;
-    max-width: 80%;         /* prevent it from being too wide on mobile */
+    transition: left 0.3s ease, top 0.3s ease, transform 0.3s ease;
+    max-width: 80%;
     white-space: nowrap;
 }
+
 
 .yes-btn:hover { transform: translate(-50%,-50%) scale(1.05); box-shadow:0 8px 25px rgba(214,51,132,0.4); }
 .no-btn:hover { background: linear-gradient(135deg,#e9ecef,#dee2e6); }
